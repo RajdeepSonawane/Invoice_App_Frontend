@@ -1,0 +1,58 @@
+.box-container{
+    display: flex;
+    flex-direction: column;
+    width: 100% ;
+    flex-grow: 1 ;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center 
+}
+
+.paper-container{
+     
+    width: 95%; 
+    padding: 3%;
+    margin-top:  8%;
+}
+
+.typography{
+    border-radius: 4px 4px 4px 4px;
+    text-align: center;
+    background-color:burlywood; 
+    color:white;
+    padding: 2%;
+    
+}
+
+.form-container {
+  width: auto;
+  margin: auto;
+  margin-top: 2%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.button-box{
+    display:flex ;
+    justify-content:center;
+    margin-top:2%; 
+    margin-bottom:2%;
+    width: auto;
+}
+.logo {
+    width: 400px;
+    height: auto;
+    margin-bottom: 8px;
+    opacity: 0.7; /* Adjust the opacity as needed */
+}
+
+.brown-text {
+    color: brown;
+    font-weight: bold;
+}
+ 
+
+
+  
