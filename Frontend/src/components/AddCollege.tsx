@@ -100,7 +100,7 @@ const AddCollege: React.FC = () => {
         console.log(dataToSubmit.collegeaccountNo)
         setError(""); // Clear previous errors
         const response = await axios.post(
-          `${API_BASE_URL}/college/add-college`,
+          `${API_BASE_URL}/College/add-college`,
           dataToSubmit,
           {
             headers: {
@@ -115,7 +115,7 @@ const AddCollege: React.FC = () => {
           setOpenSnackbar(true);
           navigate("/college-list");
         }
-  
+        
         resetForm();
       } catch (error) {
         console.error("Error adding college:", error);

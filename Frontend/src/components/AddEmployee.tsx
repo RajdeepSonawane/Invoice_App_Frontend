@@ -61,7 +61,8 @@ useEffect(() => {
 
         
         try {
-          const response = await axios.post(`${API_BASE_URL}/users/add-user`,
+          
+          const response = await axios.post(`${API_BASE_URL}/Users/add-user`,
            values,
            {
             headers: {

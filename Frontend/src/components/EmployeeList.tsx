@@ -13,12 +13,19 @@ interface Employee {
 const EmployeeList: React.FC = () => {
     const [employees, setEmployees] = useState<Employee[]>([]);
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
         const fetchemployee=async()=>{
         try{
         // Fetch users from the backend
-        const response=await axios.get<Employee[]>(`${API_BASE_URL}/users/user-list`);
+        const response=await axios.get<Employee[]>(`${API_BASE_URL}/Users/user-list`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Set the token in headers
+                },
+            }
+        );
         setEmployees(response.data);
             }
         catch(error) {

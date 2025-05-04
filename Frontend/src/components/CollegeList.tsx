@@ -11,7 +11,7 @@ interface CollegeAccount {
 interface College {
     college_id:number;
     collegename: string;
-    InstitutionType:string;
+    institutionType:string;
     contactnumber: number;
     accountNumbers: CollegeAccount[];
     email:string
@@ -25,7 +25,7 @@ const CollegeList: React.FC = () => {
         const fetchcollege = async()=>{
         // Fetch colleges from the backend
         try{
-               const response=await axios.get<College[]>(`${API_BASE_URL}/college/view-college`);
+               const response=await axios.get<College[]>(`${API_BASE_URL}/College/college-list`);
                 setColleges(response.data);
                 console.log(response.data)
             }
@@ -58,7 +58,7 @@ const CollegeList: React.FC = () => {
                     {colleges.map((clg, index) => (
                         <TableRow key={clg.college_id}>
                            <TableCell>{index+1}</TableCell>
-                           <TableCell>{clg.InstitutionType}</TableCell>
+                           <TableCell>{clg.institutionType}</TableCell>
                             <TableCell>{clg.collegename}</TableCell>
                             <TableCell>{clg.contactnumber}</TableCell>
                             <TableCell>{clg.email}</TableCell>

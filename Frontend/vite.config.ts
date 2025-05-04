@@ -10,6 +10,7 @@ export default defineConfig(({ mode }) => {
     define: {
       'import.meta.env': JSON.stringify(env), // Ensure env variables are available
     },
+    
     build: {
       minify: 'terser', // Use Terser for better minification
       terserOptions: {

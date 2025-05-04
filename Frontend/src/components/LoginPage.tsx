@@ -25,11 +25,12 @@ const LoginPage: React.FC = () => {
         password,
       });
 
-      const { token, user } = response.data;
+      const { token} = response.data;
+
+  
 
       if (token) {
-        localStorage.setItem("token", token); // Store token
-        localStorage.setItem("user", JSON.stringify(user));
+    
         login(token); // Update AuthContext
         navigate("/"); // Default page 
       

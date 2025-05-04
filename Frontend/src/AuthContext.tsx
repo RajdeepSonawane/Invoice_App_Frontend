@@ -17,8 +17,8 @@ interface AuthContextType {
 
 interface TokenPayload {
   exp: number; // Expiration timestamp
-  userId: string;
-  role: string;
+  UserId: string;
+  Role: string;
 }
 
 // Create AuthContext
@@ -28,22 +28,36 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
   const [user, setUser] = useState<User | null>(null);
-  
   const isLoggedIn = !!token;
+
+  const processToken = (jwtToken: string): boolean => {
+    try {
+      const decoded: TokenPayload = jwtDecode(jwtToken);
+      const currentTime = Date.now() / 1000;
+
+      if (decoded.exp < currentTime) {
+        return false;
+      }
+
+      
+
+      const userData = { userId: decoded.UserId, role: decoded.Role };
+      setUser(userData);
+      console.log(userData)
+      localStorage.setItem("user", JSON.stringify(userData));
+      return true;
+    } catch (error) {
+      console.error("Token processing error:", error);
+      return false;
+    }
+  };
 
 
 
  const login = (jwtToken: string) => {
     localStorage.setItem("token", jwtToken);
     setToken(jwtToken);
-    try {
-      const decoded: TokenPayload = jwtDecode(jwtToken);
-      const userData = { userId: decoded.userId, role: decoded.role };
-      setUser(userData);
-      localStorage.setItem("user", JSON.stringify(userData));
-    } catch (error) {
-      console.error("Invalid token:", error);
-    }
+    processToken(jwtToken);
   };
 
 // Logout function
@@ -57,20 +71,8 @@ const logout = () => {
 // Validate token on initial load
 useEffect(() => {
   if (token) {
-    try {
-      const decoded: TokenPayload = jwtDecode(token);
-      const currentTime = Date.now() / 1000; // Convert to seconds
-
-      if (decoded.exp < currentTime) {
-        logout(); // Token expired
-      }
-      else {
-        const storedUser = localStorage.getItem("user");
-        setUser(storedUser ? JSON.parse(storedUser) : { userId: decoded.userId, role: decoded.role });
-      }
-    } catch (error) {
-      logout(); // Invalid token
-    }
+    const valid = processToken(token);
+    if (!valid) logout();
   }
 }, [token]);
 
